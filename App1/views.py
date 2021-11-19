@@ -11,3 +11,5 @@ def get(request):
         std = models.Student.objects.all()
         serializer = Serializer.StdSerliazer(std, many=True)
         return JsonResponse(serializer.data, safe=False)
+    if request.method == 'POST':
+        pass
