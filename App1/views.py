@@ -1,10 +1,12 @@
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from . import Serializer
 from . import models
 
 
-def get(request):
+@csrf_exempt
+def index(request):
     if request.method == 'GET':
         std = models.Student.objects.all()
         serializer = Serializer.StdSerliazer(std, many=True)
