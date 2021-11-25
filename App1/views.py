@@ -11,8 +11,11 @@ def index(request):
         std = models.Student.objects.all()
         crs = models.Course.objects.all()
         inst = models.Instructor.objects.all()
-        serializer = Serializer.StdSerliazer(std, many=True)
-        return JsonResponse(serializer.data, safe=False)
+        stdSerializer = Serializer.StdSerliazer(std, many=True)
+        crsSerializer = Serializer.CrsSerliazer(crs, many=True)
+        instSerializer = Serializer.InstSerliazer(inst, many=True)
+        var = stdSerializer.data, crsSerializer.data, instSerializer.data
+        return JsonResponse(var, safe=False)
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = Serializer.StdSerliazer(data=data)

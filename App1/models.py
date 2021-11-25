@@ -12,7 +12,7 @@ class Instructor(models.Model):
 
 
 class Course(models.Model):
-    Name = models.CharField(max_length=25)
+    Name = models.CharField(max_length=50)
     Code = models.CharField(max_length=25)
     Duration = models.CharField(max_length=20)
     Instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE)
