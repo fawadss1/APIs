@@ -9,6 +9,8 @@ from . import models
 def index(request):
     if request.method == 'GET':
         std = models.Student.objects.all()
+        crs = models.Course.objects.all()
+        inst = models.Instructor.objects.all()
         serializer = Serializer.StdSerliazer(std, many=True)
         return JsonResponse(serializer.data, safe=False)
     elif request.method == 'POST':

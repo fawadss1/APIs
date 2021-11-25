@@ -4,7 +4,7 @@ from django.db import models
 class Instructor(models.Model):
     Name = models.CharField(max_length=25)
     Mobile = models.CharField(max_length=25)
-    Address = models.CharField(max_length=20)
+    Address = models.CharField(max_length=50)
     Designation = models.CharField(max_length=30)
 
     def __str__(self):
@@ -25,7 +25,7 @@ class Student(models.Model):
     Name = models.CharField(max_length=25)
     Father_Name = models.CharField(max_length=25)
     Roll_No = models.IntegerField()
-    School_Name = models.CharField(max_length=30)
+    School_Name = models.CharField(max_length=50)
     Course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
