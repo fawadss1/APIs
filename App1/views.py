@@ -1,10 +1,12 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from . import Serializer
 from . import models
 
 
+# @api_view(['GET', 'POST'])
 @csrf_exempt
 def index(request):
     if request.method == 'GET':
@@ -42,3 +44,15 @@ def student_details(request, pk):
     if request.method == 'GET':
         stdSerializer = Serializer.StdSerliazer(std)
         return JsonResponse(stdSerializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = Serializer.StdSerliazer(std, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        std.delete()
+        return JsonResponse(status=204)
