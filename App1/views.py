@@ -1,7 +1,6 @@
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
-from rest_framework import status
 from . import Serializer
 from . import models
 
@@ -37,9 +36,9 @@ def students(request):
 @csrf_exempt
 def student_details(request, pk):
     try:
-        std = models.Student.objects.filter(pk=pk)
+        std = models.Student.objects.get(pk=pk)
     except models.Student.DoesNotExist:
-        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+        return HttpResponse(status=404)
     if request.method == 'GET':
-        stdSerializer = Serializer.StdSerliazer(std, many=True)
-        return JsonResponse(stdSerializer.data, safe=False)
+        stdSerializer = Serializer.StdSerliazer(std)
+        return JsonResponse(stdSerializer.data)
